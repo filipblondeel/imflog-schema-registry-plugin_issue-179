@@ -1,0 +1,22 @@
+### Get all subjects
+@schemaRegistryBaseUrl = http://localhost:8081
+
+GET {{schemaRegistryBaseUrl}}/subjects
+
+### Get subject's versions
+< {%
+request.variables.set('subjectName', 'demo-schema')
+ %}
+GET {{schemaRegistryBaseUrl}}/subjects/{{subjectName}}/versions
+
+### Register new schema version
+< {%
+  request.variables.set('subjectName', 'demo-schema')
+%}
+POST {{schemaRegistryBaseUrl}}/subjects/{{subjectName}}/versions?normalize=true
+Accept: application/vnd.schemaregistry.v1+json, application/vnd.schemaregistry+json, application/json
+Content-Type: application/json
+
+{
+  "schema" : "{\"type\":\"record\",\"name\":\"Demo\",\"namespace\":\"demo\",\"doc\":\"Sample schema to help you get started.\",\"fields\":[{\"name\":\"my_field1\",\"type\":\"int\",\"doc\":\"The int type is a 32-bit signed integer.\"},{\"name\":\"my_field2\",\"type\":\"double\",\"doc\":\"The double type is a double precision (64-bit) IEEE 754 floating-point number.\"},{\"name\":\"my_field3\",\"type\":\"string\",\"doc\":\"The string is a unicode character sequence.\"}]}"
+}
