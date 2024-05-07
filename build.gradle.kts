@@ -4,12 +4,19 @@ plugins {
 }
 
 schemaRegistry {
-    url = "http://localhost:8081/"
+    url = "http://localhost:8087/"
     outputDirectory = "build/schemas"
     pretty = true
 
     download {
         // See schema-registry.http to first register this schema with your local Schema Registry
         subject(inputSubject = "demo-schema", outputPath = "build/schemas")
+    }
+}
+
+tasks {
+
+    named("downloadSchemasTask") {
+        outputs.dir("build/schemas")
     }
 }
